@@ -7,8 +7,8 @@
   <meta property="og:image" content="https://thumbs.dreamstime.com/b/breaking-news-headline-under-magnifying-glass-51249265.jpg"> <!-- 적절한 이미지 URL로 수정하세요 -->
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background-color: #f5f5f5;
+      font-family: 'Courier New', monospace;
+      background-color: #000;
       margin: 0;
       display: flex;
       flex-direction: column;
@@ -18,18 +18,21 @@
     }
     .container {
       padding: 20px;
-      background-color: white;
+      background-color: #111;
       border-radius: 8px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
     }
     h1 {
       color: #e74c3c;
+      font-size: 30px;
     }
     p {
-      font-size: 18px;
+      font-size: 20px;
+      color: #fff;
     }
     video {
-      width: 100%; /* 폭에 맞게 재생되도록 설정 */
+      width: 100%;
+      height: auto;
       border-radius: 8px;
     }
     button {
@@ -46,7 +49,7 @@
   <div class="container">
     <h1>🚨 Urgent News Alert 🚨</h1>
     <p>Breaking News: Unbelievable Discoveries!</p>
-    <video autoplay loop muted>
+    <video autoplay loop controls volume="1">
       <source src="lv_0_20230809155834.mp4" type="video/mp4">
       Your browser does not support the video tag.
     </video>
@@ -62,8 +65,8 @@
     setTimeout(function() {
       document.getElementById("shareDiv").style.display = "block";
       var video = document.querySelector("video");
-      video.muted = false; // 소리 활성화
-      video.play(); // 영상 재생
+      video.muted = false;
+      video.play();
     }, 30000);
 
     function shareLink() {
