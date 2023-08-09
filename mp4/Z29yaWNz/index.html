@@ -1,8 +1,80 @@
 <!DOCTYPE html>
 <html>
+<head>
+  <title>🚨 Urgent News Alert: Breaking News! 🚨</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f5f5;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+    .container {
+      padding: 20px;
+      background-color: white;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+    h1 {
+      color: #e74c3c;
+    }
+    p {
+      font-size: 18px;
+    }
+    video {
+      border-radius: 8px;
+    }
+    button {
+      padding: 10px 20px;
+      background-color: #e74c3c;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+  </style>
+</head>
 <body>
-  <video autoplay loop volume="1">
-    <source src="lv_0_20230809155834.mp4" type="video/mp4">
-  </video>
+  <div class="container">
+    <h1>🚨 Urgent News Alert 🚨</h1>
+    <p>Breaking News: Unbelievable Discoveries!</p>
+    <video autoplay loop muted>
+      <source src="video.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+    <div id="shareDiv" style="display: none;">
+      <button onclick="shareLink()">Read the Full Story</button>
+    </div>
+  </div>
+
+  <script>
+    var sharedLink = window.location.href;
+    var shareTitle = "🚨 Urgent News Alert: Breaking News! 🚨";
+    
+    setTimeout(function() {
+      document.getElementById("shareDiv").style.display = "block";
+      document.querySelector("video").muted = false;
+    }, 30000);
+
+    function shareLink() {
+      if (navigator.share) {
+        navigator.share({
+          title: shareTitle,
+          url: sharedLink
+        }).then(() => {
+          console.log('Link successfully shared.');
+        }).catch((error) => {
+          console.error('Error sharing the link:', error);
+        });
+      } else {
+        alert("Read the full story: " + sharedLink);
+      }
+    }
+  </script>
 </body>
 </html>
+
