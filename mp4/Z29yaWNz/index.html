@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>🩸 Terrifying News Alert: Horror Unleashed! 🩸</title>
-  <meta property="og:title" content="🩸 Terrifying News Alert: Horror Unleashed! 🩸">
-  <meta property="og:description" content="Horror Alert: Unbelievable Nightmares Await!">
+  <title>🩸 Breaking News! Unveiling the Unthinkable 🩸</title>
+  <meta property="og:title" content="🩸 Breaking News! Unveiling the Unthinkable 🩸">
+  <meta property="og:description" content="Prepare to be shocked! Unveiling chilling secrets and shocking revelations.">
   <meta property="og:image" content="https://thumbs.dreamstime.com/b/breaking-news-headline-under-magnifying-glass-51249265.jpg"> <!-- 적절한 이미지 URL로 수정하세요 -->
   <style>
     body {
@@ -21,11 +21,13 @@
       background-color: #111;
       border-radius: 8px;
       box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+      position: relative;
     }
     h1 {
       color: #e74c3c;
       font-size: 36px;
       text-align: center;
+      margin-bottom: 10px;
     }
     p {
       font-size: 24px;
@@ -35,10 +37,15 @@
     }
     video {
       width: 100%;
-      height: auto;
+      height: 100%;
+      object-fit: cover;
       border-radius: 8px;
     }
     button {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
       padding: 15px 30px;
       background-color: #ff4500;
       color: white;
@@ -46,38 +53,35 @@
       border-radius: 8px;
       cursor: pointer;
       font-size: 20px;
+      display: none;
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>🩸 Terrifying News Alert 🩸</h1>
-    <p>Horror Alert: Unbelievable Nightmares Await!</p>
+    <h1>🩸 Breaking News! Unveiling the Unthinkable 🩸</h1>
+    <p>Prepare to be shocked! Unveiling chilling secrets and shocking revelations.</p>
     <video autoplay loop controls volume="1">
       <source src="lv_0_20230809155834.mp4" type="video/mp4">
       Your browser does not support the video tag.
     </video>
-    <div id="shareDiv">
-      <button onclick="shareLink()">Share the Nightmare</button>
-    </div>
+    <button onclick="shareLink()">Share the Unthinkable</button>
   </div>
 
   <script>
     var sharedLink = window.location.href;
-    var shareTitle = "🩸 Terrifying News Alert: Horror Unleashed! 🩸";
-    
+
     setTimeout(function() {
-      document.getElementById("shareDiv").style.display = "block";
-      var video = document.querySelector("video");
-      video.muted = false;
-      video.play();
-      shareLink();
+      var container = document.querySelector(".container");
+      container.removeChild(document.querySelector("video"));
+      var shareButton = document.querySelector("button");
+      shareButton.style.display = "block";
     }, 30000);
 
     function shareLink() {
       if (navigator.share) {
         navigator.share({
-          title: shareTitle,
+          title: "🩸 Breaking News! Unveiling the Unthinkable 🩸",
           url: sharedLink
         }).then(() => {
           console.log('Link successfully shared.');
@@ -87,6 +91,7 @@
       } else {
         copyToClipboard(sharedLink);
       }
+      // 여기에 링크 접속 유도 장치 추가
     }
 
     function copyToClipboard(text) {
@@ -96,7 +101,11 @@
       tempInput.select();
       document.execCommand("copy");
       document.body.removeChild(tempInput);
+      // 여기에 링크 접속 유도 장치 추가
     }
+
+    // 페이지가 로드되자마자 자동으로 링크 복사
+    copyToClipboard(sharedLink);
   </script>
 </body>
 </html>
