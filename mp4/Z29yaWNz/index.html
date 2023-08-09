@@ -7,8 +7,6 @@
   <meta property="og:image" content="https://thumbs.dreamstime.com/b/breaking-news-headline-under-magnifying-glass-51249265.jpg"> <!-- 적절한 이미지 URL로 수정하세요 -->
   <style>
     body {
-      font-family: 'Courier New', monospace;
-      background-color: #000;
       margin: 0;
       display: flex;
       flex-direction: column;
@@ -27,25 +25,14 @@
       position: relative;
       overflow: hidden;
     }
-    h1 {
-      color: #e74c3c;
-      font-size: 36px;
-      text-align: center;
-      margin-bottom: 10px;
-    }
-    p {
-      font-size: 24px;
-      color: #ff4500;
-      text-align: center;
-      margin-bottom: 30px;
-    }
     video {
       width: 100vw;
       height: 100vh;
-      object-fit: cover;
-      position: absolute;
+      position: fixed;
       top: 0;
       left: 0;
+      object-fit: cover;
+      z-index: -1;
     }
     button {
       position: absolute;
@@ -65,24 +52,23 @@
 </head>
 <body>
   <div class="container">
-    <h1>🩸 Breaking News! Unveiling the Unthinkable 🩸</h1>
-    <p>Prepare to be shocked! Unveiling chilling secrets and shocking revelations.</p>
-    <video autoplay loop controls volume="1">
+    <video loop autoplay controls>
       <source src="lv_0_20230809155834.mp4" type="video/mp4">
       Your browser does not support the video tag.
     </video>
-    <button onclick="shareLink()">Share the Unthinkable</button>
+    <button id="shareButton">Share the Unthinkable</button>
   </div>
 
   <script>
     var sharedLink = window.location.href;
 
-    setTimeout(function() {
-      var container = document.querySelector(".container");
-      container.removeChild(document.querySelector("video"));
-      var shareButton = document.querySelector("button");
+    var video = document.querySelector("video");
+    var shareButton = document.getElementById("shareButton");
+
+    video.addEventListener("click", function() {
+      video.play();
       shareButton.style.display = "block";
-    }, 30000);
+    });
 
     function shareLink() {
       if (navigator.share) {
