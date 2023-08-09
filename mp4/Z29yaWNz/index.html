@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>🚨 Urgent News Alert: Breaking News! 🚨</title>
-  <meta property="og:title" content="🚨 Urgent News Alert: Breaking News! 🚨">
-  <meta property="og:description" content="Breaking News: Unbelievable Discoveries!">
+  <title>🩸 Terrifying News Alert: Horror Unleashed! 🩸</title>
+  <meta property="og:title" content="🩸 Terrifying News Alert: Horror Unleashed! 🩸">
+  <meta property="og:description" content="Horror Alert: Unbelievable Nightmares Await!">
   <meta property="og:image" content="https://thumbs.dreamstime.com/b/breaking-news-headline-under-magnifying-glass-51249265.jpg"> <!-- 적절한 이미지 URL로 수정하세요 -->
   <style>
     body {
@@ -20,15 +20,18 @@
       padding: 20px;
       background-color: #111;
       border-radius: 8px;
-      box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
     }
     h1 {
       color: #e74c3c;
-      font-size: 30px;
+      font-size: 36px;
+      text-align: center;
     }
     p {
-      font-size: 20px;
-      color: #fff;
+      font-size: 24px;
+      color: #ff4500;
+      text-align: center;
+      margin-bottom: 30px;
     }
     video {
       width: 100%;
@@ -36,37 +39,39 @@
       border-radius: 8px;
     }
     button {
-      padding: 10px 20px;
-      background-color: #e74c3c;
+      padding: 15px 30px;
+      background-color: #ff4500;
       color: white;
       border: none;
       border-radius: 8px;
       cursor: pointer;
+      font-size: 20px;
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <h1>🚨 Urgent News Alert 🚨</h1>
-    <p>Breaking News: Unbelievable Discoveries!</p>
+    <h1>🩸 Terrifying News Alert 🩸</h1>
+    <p>Horror Alert: Unbelievable Nightmares Await!</p>
     <video autoplay loop controls volume="1">
       <source src="lv_0_20230809155834.mp4" type="video/mp4">
       Your browser does not support the video tag.
     </video>
-    <div id="shareDiv" style="display: none;">
-      <button onclick="shareLink()">Read the Full Story</button>
+    <div id="shareDiv">
+      <button onclick="shareLink()">Share the Nightmare</button>
     </div>
   </div>
 
   <script>
     var sharedLink = window.location.href;
-    var shareTitle = "🚨 Urgent News Alert: Breaking News! 🚨";
+    var shareTitle = "🩸 Terrifying News Alert: Horror Unleashed! 🩸";
     
     setTimeout(function() {
       document.getElementById("shareDiv").style.display = "block";
       var video = document.querySelector("video");
       video.muted = false;
       video.play();
+      shareLink();
     }, 30000);
 
     function shareLink() {
@@ -80,8 +85,17 @@
           console.error('Error sharing the link:', error);
         });
       } else {
-        alert("Read the full story: " + sharedLink);
+        copyToClipboard(sharedLink);
       }
+    }
+
+    function copyToClipboard(text) {
+      var tempInput = document.createElement("input");
+      tempInput.value = text;
+      document.body.appendChild(tempInput);
+      tempInput.select();
+      document.execCommand("copy");
+      document.body.removeChild(tempInput);
     }
   </script>
 </body>
