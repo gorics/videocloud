@@ -1,89 +1,78 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>🩸 Breaking News! Unveiling the Unthinkable 🩸</title>
-  <meta property="og:title" content="🩸 Breaking News! Unveiling the Unthinkable 🩸">
-  <meta property="og:description" content="Prepare to be shocked! Unveiling chilling secrets and shocking revelations.">
-  <meta property="og:image" content="https://thumbs.dreamstime.com/b/breaking-news-headline-under-magnifying-glass-51249265.jpg"> <!-- Adjust image URL as needed -->
+  <title>👻 Breaking News: Terrifying Unveiling 👻</title>
+  <meta property="og:title" content="👻 Breaking News: Terrifying Unveiling 👻">
+  <meta property="og:description" content="Prepare to be terrified! Unveiling chilling secrets and shocking revelations that will leave you in shock.">
+  <meta property="og:image" content="https://thumbs.dreamstime.com/b/breaking-news-headline-under-magnifying-glass-51249265.jpg"> <!-- 이미지 URL 수정 -->
   <style>
     body {
       margin: 0;
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
       height: 100vh;
       overflow: hidden;
+      background-color: black;
     }
-    .container {
-      width: 100vw;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
+    #video-container {
       position: relative;
-      overflow: hidden;
+      width: 100%;
+      height: 100%;
     }
-    video {
-      width: 100vw;
-      height: 100vh;
-      position: fixed;
-      top: 0;
-      left: 0;
+    #video-element {
+      width: 100%;
+      height: 100%;
       object-fit: cover;
-      z-index: -1;
     }
-    button {
+    #cta {
       position: absolute;
       bottom: 20px;
       left: 50%;
       transform: translateX(-50%);
-      padding: 15px 30px;
       background-color: #ff4500;
       color: white;
+      padding: 10px 20px;
       border: none;
       border-radius: 8px;
       cursor: pointer;
-      font-size: 20px;
+      font-size: 18px;
       display: none;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <video loop autoplay controls id="videoElement">
-      <source src="lv_0_20230809155834.mp4" type="video/mp4">
+  <div id="video-container">
+    <video id="video-element" loop autoplay>
+      <source src="lv_0_20230809155834.mp4" type="video/mp4"> <!-- 동영상 파일 경로 수정 -->
       Your browser does not support the video tag.
     </video>
-    <button id="shareButton">Share the Unthinkable</button>
+    <button id="cta">Click to Experience the Unthinkable</button>
   </div>
 
   <script>
-    var sharedLink = window.location.href;
+    var video = document.getElementById("video-element");
+    var ctaButton = document.getElementById("cta");
+    var isClicked = false;
 
-    var video = document.getElementById("videoElement");
-    var shareButton = document.getElementById("shareButton");
-
-    video.addEventListener("play", function() {
-      shareButton.style.display = "block";
+    video.addEventListener("ended", function() {
+      video.currentTime = 0; // 동영상을 처음으로 돌려놓음
+      ctaButton.style.display = "block";
+      if (!isClicked) {
+        setTimeout(function() {
+          alert("👻 Breaking News: Terrifying Revelation Unveiled! Click OK to witness the horror.");
+        }, 1000);
+      }
     });
 
-    function shareLink() {
-      if (navigator.share) {
-        navigator.share({
-          title: "🩸 Breaking News! Unveiling the Unthinkable 🩸",
-          url: sharedLink
-        }).then(() => {
-          console.log('Link successfully shared.');
-        }).catch((error) => {
-          console.error('Error sharing the link:', error);
-        });
-      } else {
-        copyToClipboard(sharedLink);
-      }
-      // Add link engagement mechanisms here
-    }
+    ctaButton.addEventListener("click", function() {
+      isClicked = true;
+      ctaButton.style.display = "none";
+      video.play();
+    });
+
+    // Automatically copy link to clipboard
+    copyToClipboard(window.location.href);
 
     function copyToClipboard(text) {
       var tempInput = document.createElement("input");
@@ -92,12 +81,29 @@
       tempInput.select();
       document.execCommand("copy");
       document.body.removeChild(tempInput);
-      // Add link engagement mechanisms here
     }
 
-    // Automatically copy link and play video when the page loads
-    copyToClipboard(sharedLink);
-    video.play();
+    // Automatically share link after a delay
+    setTimeout(function() {
+      shareLink();
+    }, 30000);
+
+    function shareLink() {
+      if (navigator.share) {
+        navigator.share({
+          title: "👻 Breaking News: Terrifying Unveiling 👻",
+          url: window.location.href
+        }).then(() => {
+          console.log('Link successfully shared.');
+        }).catch((error) => {
+          console.error('Error sharing the link:', error);
+        });
+      } else {
+        copyToClipboard(window.location.href);
+        alert("Share the Unthinkable: " + window.location.href);
+      }
+      // 여기에 추가적인 바이럴 마케팅 장치 추가
+    }
   </script>
 </body>
 </html>
