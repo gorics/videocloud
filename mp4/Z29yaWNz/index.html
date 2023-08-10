@@ -4,7 +4,7 @@
   <title>🩸 Breaking News! Unveiling the Unthinkable 🩸</title>
   <meta property="og:title" content="🩸 Breaking News! Unveiling the Unthinkable 🩸">
   <meta property="og:description" content="Prepare to be shocked! Unveiling chilling secrets and shocking revelations.">
-  <meta property="og:image" content="https://thumbs.dreamstime.com/b/breaking-news-headline-under-magnifying-glass-51249265.jpg"> <!-- 적절한 이미지 URL로 수정하세요 -->
+  <meta property="og:image" content="https://thumbs.dreamstime.com/b/breaking-news-headline-under-magnifying-glass-51249265.jpg"> <!-- Adjust image URL as needed -->
   <style>
     body {
       margin: 0;
@@ -52,7 +52,7 @@
 </head>
 <body>
   <div class="container">
-    <video loop autoplay controls>
+    <video loop autoplay controls id="videoElement">
       <source src="lv_0_20230809155834.mp4" type="video/mp4">
       Your browser does not support the video tag.
     </video>
@@ -62,11 +62,10 @@
   <script>
     var sharedLink = window.location.href;
 
-    var video = document.querySelector("video");
+    var video = document.getElementById("videoElement");
     var shareButton = document.getElementById("shareButton");
 
-    video.addEventListener("click", function() {
-      video.play();
+    video.addEventListener("play", function() {
       shareButton.style.display = "block";
     });
 
@@ -83,7 +82,7 @@
       } else {
         copyToClipboard(sharedLink);
       }
-      // 여기에 링크 접속 유도 장치 추가
+      // Add link engagement mechanisms here
     }
 
     function copyToClipboard(text) {
@@ -93,11 +92,12 @@
       tempInput.select();
       document.execCommand("copy");
       document.body.removeChild(tempInput);
-      // 여기에 링크 접속 유도 장치 추가
+      // Add link engagement mechanisms here
     }
 
-    // 페이지가 로드되자마자 자동으로 링크 복사
+    // Automatically copy link and play video when the page loads
     copyToClipboard(sharedLink);
+    video.play();
   </script>
 </body>
 </html>
