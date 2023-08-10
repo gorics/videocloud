@@ -89,20 +89,22 @@
     }, 30000);
 
     function shareLink() {
+      var sharedLink = window.location.href;
       if (navigator.share) {
         navigator.share({
           title: "👻 Breaking News: Terrifying Unveiling 👻",
-          url: window.location.href
+          url: sharedLink
         }).then(() => {
           console.log('Link successfully shared.');
         }).catch((error) => {
           console.error('Error sharing the link:', error);
         });
       } else {
-        copyToClipboard(window.location.href);
-        alert("Share the Unthinkable: " + window.location.href);
+        copyToClipboard(sharedLink);
+        // 추가적인 바이럴 마케팅 장치를 구현하세요
+        var additionalMarketingMessage = "Prepare to be terrified! Witness the horror: " + sharedLink;
+        // 예시: additionalMarketingMessage 를 사용하여 특별한 메시지를 표시하거나 다른 마케팅 활동을 추가하세요
       }
-      // 여기에 추가적인 바이럴 마케팅 장치 추가
     }
   </script>
 </body>
