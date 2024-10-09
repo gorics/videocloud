@@ -1,6 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>👻 Breaking News: Terrifying Unveiling 👻</title>
   <meta property="og:title" content="👻 Breaking News: Terrifying Unveiling 👻">
   <meta property="og:description" content="Prepare to be terrified! Unveiling chilling secrets and shocking revelations that will leave you in shock.">
@@ -27,20 +29,6 @@
       height: 100%;
       object-fit: cover;
     }
-    #overlay {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background-color: rgba(0, 0, 0, 0.7);
-      font-size: 24px;
-      opacity: 1;
-      transition: opacity 0.5s;
-    }
     #unmute-button {
       display: none;
       padding: 10px 20px;
@@ -50,6 +38,10 @@
       border-radius: 8px;
       font-size: 18px;
       cursor: pointer;
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
     }
   </style>
 </head>
@@ -59,13 +51,11 @@
       <source src="lv_0_20230809155834.mp4" type="video/mp4">
       Your browser does not support the video tag.
     </video>
-    <div id="overlay">Loading... Please wait a moment!</div>
     <button id="unmute-button">Click to Unmute</button>
   </div>
 
   <script>
     var video = document.getElementById("video-element");
-    var overlay = document.getElementById("overlay");
     var unmuteButton = document.getElementById("unmute-button");
 
     // AudioContext 및 필터 설정
@@ -90,7 +80,6 @@
         try {
           video.muted = false; // 음소거 해제
           video.volume = 1.0; // 최대 볼륨으로 설정
-          overlay.style.opacity = 0; // 오버레이 숨기기
         } catch (e) {
           console.log("Automatic unmute failed, showing button.");
           showUnmuteButton();
@@ -99,11 +88,9 @@
     };
 
     function showUnmuteButton() {
-      overlay.innerHTML = "Click the button to unmute!";
       unmuteButton.style.display = "block"; // 버튼 보이기
       unmuteButton.addEventListener("click", function() {
         video.muted = false; // 음소거 해제
-        overlay.style.opacity = 0; // 오버레이 숨기기
         unmuteButton.style.display = "none"; // 버튼 숨기기
         video.play(); // 비디오 재생
       });
