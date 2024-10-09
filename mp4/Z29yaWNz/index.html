@@ -4,7 +4,7 @@
   <title>👻 Breaking News: Terrifying Unveiling 👻</title>
   <meta property="og:title" content="👻 Breaking News: Terrifying Unveiling 👻">
   <meta property="og:description" content="Prepare to be terrified! Unveiling chilling secrets and shocking revelations that will leave you in shock.">
-  <meta property="og:image" content="https://thumbs.dreamstime.com/b/breaking-news-headline-under-magnifying-glass-51249265.jpg"> <!-- 이미지 URL 수정 -->
+  <meta property="og:image" content="https://thumbs.dreamstime.com/b/breaking-news-headline-under-magnifying-glass-51249265.jpg">
   <style>
     body {
       margin: 0;
@@ -14,6 +14,8 @@
       height: 100vh;
       overflow: hidden;
       background-color: black;
+      color: white;
+      font-family: Arial, sans-serif;
     }
     #video-container {
       position: relative;
@@ -25,107 +27,86 @@
       height: 100%;
       object-fit: cover;
     }
-    #cta {
+    #overlay {
       position: absolute;
-      bottom: 20px;
-      left: 50%;
-      transform: translateX(-50%);
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: rgba(0, 0, 0, 0.7);
+      font-size: 24px;
+      opacity: 1;
+      transition: opacity 0.5s;
+    }
+    #unmute-button {
+      display: none;
+      padding: 10px 20px;
       background-color: #ff4500;
       color: white;
-      padding: 10px 20px;
       border: none;
       border-radius: 8px;
-      cursor: pointer;
       font-size: 18px;
-      display: none;
+      cursor: pointer;
     }
   </style>
 </head>
 <body>
   <div id="video-container">
     <video id="video-element" loop autoplay muted>
-      <source src="lv_0_20230809155834.mp4" type="video/mp4"> <!-- 동영상 파일 경로 수정 -->
+      <source src="lv_0_20230809155834.mp4" type="video/mp4">
       Your browser does not support the video tag.
     </video>
-    <button id="cta">Click to Experience the Unthinkable</button>
+    <div id="overlay">Loading... Please wait a moment!</div>
+    <button id="unmute-button">Click to Unmute</button>
   </div>
 
   <script>
     var video = document.getElementById("video-element");
-    var ctaButton = document.getElementById("cta");
-    var isClicked = false;
+    var overlay = document.getElementById("overlay");
+    var unmuteButton = document.getElementById("unmute-button");
 
     // AudioContext 및 필터 설정
     var audioContext = new (window.AudioContext || window.webkitAudioContext)();
     var source = audioContext.createMediaElementSource(video);
-    var filter = audioContext.createBiquadFilter();
-    
-    // 필터 설정 (기괴한 효과)
-    filter.type = 'lowshelf'; // 저음 강조
-    filter.frequency.value = 1000; // 주파수 조절
-    filter.gain.value = 25; // 이득 조절 (소리 증폭)
+    var gainNode = audioContext.createGain();
+
+    // 이득 설정 (소리 증폭)
+    gainNode.gain.value = 1.0; // 최대 볼륨 설정
 
     // 노드 연결
-    source.connect(filter);
-    filter.connect(audioContext.destination); // 오디오 출력
+    source.connect(gainNode);
+    gainNode.connect(audioContext.destination); // 오디오 출력
 
-    video.addEventListener("ended", function() {
-      video.currentTime = 0; // 동영상을 처음으로 돌려놓음
-      ctaButton.style.display = "block";
-      if (!isClicked) {
-        setTimeout(function() {
-          alert("👻 Breaking News: Terrifying Revelation Unveiled! Click OK to witness the horror.");
-        }, 1000);
-      }
-    });
-
-    ctaButton.addEventListener("click", function() {
-      isClicked = true;
-      ctaButton.style.display = "none";
-      video.play();
-    });
-
-    // 페이지 로드 시 비디오 최대 볼륨 및 음소거 해제
+    // 페이지 로드 시 비디오 재생 및 음소거 해제 시도
     window.onload = function() {
-      video.volume = 1.0; // 최대 볼륨 설정
-      video.muted = false; // 음소거 해제
       video.play(); // 비디오 재생
+      video.volume = 0.5; // 기본 볼륨 설정
+
+      // 일정 시간 후 자동 음소거 해제 시도
+      setTimeout(function() {
+        try {
+          video.muted = false; // 음소거 해제
+          video.volume = 1.0; // 최대 볼륨으로 설정
+          overlay.style.opacity = 0; // 오버레이 숨기기
+        } catch (e) {
+          console.log("Automatic unmute failed, showing button.");
+          showUnmuteButton();
+        }
+      }, 3000); // 3초 후 음소거 해제 시도
     };
 
-    // Automatically copy link to clipboard
-    copyToClipboard(window.location.href);
-
-    function copyToClipboard(text) {
-      var tempInput = document.createElement("input");
-      tempInput.value = text;
-      document.body.appendChild(tempInput);
-      tempInput.select();
-      document.execCommand("copy");
-      document.body.removeChild(tempInput);
-    }
-
-    // Automatically share link after a delay
-    setTimeout(function() {
-      shareLink();
-    }, 30000);
-
-    function shareLink() {
-      var sharedLink = window.location.href;
-      if (navigator.share) {
-        navigator.share({
-          title: "👻 Breaking News: Terrifying Unveiling 👻",
-          url: sharedLink
-        }).then(() => {
-          console.log('Link successfully shared.');
-        }).catch((error) => {
-          console.error('Error sharing the link:', error);
-        });
-      } else {
-        copyToClipboard(sharedLink);
-        // 추가적인 바이럴 마케팅 장치를 구현하세요
-        var additionalMarketingMessage = "Prepare to be terrified! Witness the horror: " + sharedLink;
-        // 예시: additionalMarketingMessage 를 사용하여 특별한 메시지를 표시하거나 다른 마케팅 활동을 추가하세요
-      }
+    function showUnmuteButton() {
+      overlay.innerHTML = "Click the button to unmute!";
+      unmuteButton.style.display = "block"; // 버튼 보이기
+      unmuteButton.addEventListener("click", function() {
+        video.muted = false; // 음소거 해제
+        overlay.style.opacity = 0; // 오버레이 숨기기
+        unmuteButton.style.display = "none"; // 버튼 숨기기
+        video.play(); // 비디오 재생
+      });
     }
   </script>
 </body>
